@@ -56,5 +56,19 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+
+        /**
+         * Custom subscription Middleware...
+         */
+        'jwt.auth.valid' => \App\Http\Middleware\HasValidSubscription::class,
+        'jwt.auth.verified' => \App\Http\Middleware\IsVerifiedUser::class,
+        'jwt.auth.subscribed' => \App\Http\Middleware\IsSubscribedUser::class,
+        'jwt.auth.systemAccess' => \App\Http\Middleware\HasSystemAccess::class,
+        /*
+         * Package Middleware...
+         */
+        'cors' => \Barryvdh\Cors\HandleCors::class,
+        'jwt.refresh' => \Tymon\JWTAuth\Http\Middleware\RefreshToken::class
     ];
+    
 }
