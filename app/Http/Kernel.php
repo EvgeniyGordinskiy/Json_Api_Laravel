@@ -60,10 +60,7 @@ class Kernel extends HttpKernel
         /**
          * Custom subscription Middleware...
          */
-        'jwt.auth.valid' => \App\Http\Middleware\HasValidSubscription::class,
-        'jwt.auth.verified' => \App\Http\Middleware\IsVerifiedUser::class,
-        'jwt.auth.subscribed' => \App\Http\Middleware\IsSubscribedUser::class,
-        'jwt.auth.systemAccess' => \App\Http\Middleware\HasSystemAccess::class,
+        'jwt.auth' => \App\Http\Middleware\VerifyJWTToken::class,
         /*
          * Package Middleware...
          */

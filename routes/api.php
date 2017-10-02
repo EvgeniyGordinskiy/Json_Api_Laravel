@@ -24,3 +24,15 @@ Route::get('refresh_token', [
     'as' => 'auth.refresh',
     'uses' => 'AuthController@refresh',
 ]);
+
+// Account Route
+Route::group([
+    'as' => 'account.',
+    'prefix' => 'account',
+    'middleware' => [
+        'jwt.auth',
+    ],
+], function () {
+    Route::get('', ['as' => 'show', 'uses' => 'Account\AccountController@show']);
+
+});

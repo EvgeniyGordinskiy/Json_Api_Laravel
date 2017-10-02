@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Requests\Auth;
+namespace App\Http\Requests\Account;
 
 use App\Http\Requests\BaseRequest;
 
-class AuthenticateRequest extends BaseRequest
+class ShowRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool If the user is authorized to make this request.
      */
-    public function authorize() : bool
+    public function authorize()
     {
         return true;
     }
@@ -21,16 +21,10 @@ class AuthenticateRequest extends BaseRequest
      *
      * @return string[] The validation rules
      */
-    public function rules() : array
+    public function rules()
     {
         return [
-            'email' => [
-                'required',
-                'email',
-            ],
-            'password' => [
-                'required',
-            ],
+            //
         ];
     }
 }

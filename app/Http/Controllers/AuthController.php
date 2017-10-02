@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Auth\AuthenticateRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use App\Http\Requests\Auth\RegisterRequest;
+use App\Http\Requests\Auth\AuthenticateRequest;
+use Hash;
 
 class AuthController extends BaseController
 {
@@ -28,6 +31,7 @@ class AuthController extends BaseController
         return $this->respond(compact('token'));
     }
 
+
     /**
      * Return the credential that are mandatory.
      *
@@ -41,4 +45,36 @@ class AuthController extends BaseController
             'password' => $request->input('password'),
         ];
     }
+
+
+    /**
+     * The action to register a user.
+     *
+     * @param RegisterRequest $request The incoming request with data.
+     *
+     * @return JsonResponse The JSON response if the user was registered.
+     */
+    public function register(RegisterRequest $request)
+    {
+        $user = new User($request->only(
+            [
+                'first_name',
+                'last_name',
+                'timeZone',
+                'email',
+                'password',
+            ]
+        ));
+        $user->password = bcrypt($user->password);
+
+        $user->token = str_random(30);
+
+        $user->save();
+
+        $credentials = $request->only('email', 'password');
+        $token = JWTAuth::attempt($credentials);
+
+        return $this->respond(compact('token'));
+    }
+
 }
