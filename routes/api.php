@@ -36,3 +36,18 @@ Route::group([
     Route::get('', ['as' => 'show', 'uses' => 'Account\AccountController@show']);
 
 });
+
+// Users
+Route::group([
+    'as' => 'users.',
+    'prefix' => 'users',
+    'middleware' => [
+        'jwt.auth',
+    ],
+], function () {
+    Route::get('', ['as' => 'index', 'uses' => 'Account\UserController@index']);
+    Route::get('{user}', ['as' => 'show', 'uses' => 'Account\UserController@show']);
+    Route::post('', ['as' => 'store', 'uses' => 'Account\UserController@store']);
+    Route::post('{user}', ['as' => 'update', 'uses' => 'Account\UserController@update']);
+    Route::delete('{user}', ['as' => 'destroy', 'uses' => 'Account\UserController@destroy']);
+});
